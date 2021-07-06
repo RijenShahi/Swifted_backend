@@ -3,7 +3,7 @@ const Router = express.Router();
 const { check, validationResult } = require("express-validator");
 
 //controllers
-const { profileRegistration } = require("../controllers/users");
+const { registerProfile, loginProfile } = require("../controllers/users");
 
 //route for user registration
 Router.post(
@@ -22,7 +22,5 @@ Router.post(
       max: 16,
     }),
   ],
-  profileRegistration
+  registerProfile
 );
-
-module.exports = Router;

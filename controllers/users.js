@@ -1,8 +1,10 @@
 const UserProfile = require("../models/userProfile.models");
 const { validationResult } = require("express-validator");
+const { hashPassword } = require("../utils/utils");
 const nodemon = require("nodemon");
 
-module.exports.profileRegistration = async (req, res) => {
+//account registration
+module.exports.registerProfile = async (req, res) => {
   const errors = validationResult(req);
 
   if (errors.isEmpty()) {
@@ -19,6 +21,8 @@ module.exports.profileRegistration = async (req, res) => {
 
       const userType = req.body.userType;
 
+      const hashedPassword = await hashPassword(password);
+
       userData = UserProfile({
         firstname,
         lastname,
@@ -26,7 +30,7 @@ module.exports.profileRegistration = async (req, res) => {
         email,
         phone,
         address,
-        password,
+        password: hashedPassword,
         userType,
       });
 

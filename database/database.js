@@ -1,7 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-mongoose.connect('mongodb://127.0.0.1:27017/swifted_database',{
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology : true
-})
+module.exports = async (MONGO_URI) => {
+  try {
+    await mongoose.connect(MONGO_URI, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
