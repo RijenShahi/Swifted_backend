@@ -24,3 +24,8 @@ Router.post(
   ],
   registerProfile
 );
+
+//route for user login
+Router.post("/login", loginProfile);
+
+module.exports = Router;
