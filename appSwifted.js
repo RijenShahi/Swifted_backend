@@ -1,10 +1,17 @@
-const express = require('express');
-const userProfileRoute = require('./route/userProfileRoute');
-const database = require('./database/database')
+const express = require("express");
+const userProfileRoute = require("./route/userProfile.routes");
+const database = require("./database/database");
 
-const app = express();  
+// constants
+const PORT = 90;
+const MONGO_URI = "mongodb://localhost:27017/swifted_database";
+
+const app = express();
 app.use(express.json());
 
 app.use(userProfileRoute);
 
-app.listen(90);
+app.listen(PORT, (err) => {
+  if (err) throw err;
+  console.log(`API started at port: ${PORT}`);
+});
