@@ -1,0 +1,18 @@
+{
+  "name": "Swifted_Backend",
+  "version": "1.0.0",
+  "description": "This is a dropshipping website for wearables where vendors and costomers are prioritized users.",
+  "main": "appSwifted.js",
+  "scripts": {
+    "build": "rm -rf build/ && prettier --write source/ && tsc",
+    "dev": "cross-env NODE_ENV=development nodemon source/appSwifted.js",
+    "start": "nodemon appSwifted.js"
+  },
+  "author": "Birendra Mahara, Khadga Narayan Chaudhary, Prayash Kumar Shrestha, Rijen Shahi, Shrijan Kumar Budhathoki",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.13.2",
+    "nodemon": "^2.0.9"
+  }
+}
