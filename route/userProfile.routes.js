@@ -15,11 +15,12 @@ Router.post(
     check("email", "Email cannot be empty!").not().isEmpty(),
     check("email", "Email format is incorrect!").isEmail(),
     check("phone", "Phone cannot be empty!").not().isEmpty(),
-    check("phone", "Phone number is invalid!").isLength({ equalTo: 10 }),
+    check("phone", "Phone number is invalid!").isLength({ min: 10, max: 10 }),
     check("password", "Password cannot be empty!").not().isEmpty(),
-    check("passowrd", "Password should be longer than 6 characters.)").isLength(
-      { min: 6 }
-    ),
+    check("password", "Password should be between 6-16 characters.)").isLength({
+      min: 6,
+      max: 16,
+    }),
   ],
   profileRegistration
 );
