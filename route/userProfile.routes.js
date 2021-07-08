@@ -22,6 +22,7 @@ Router.post(
     check("email", "Email format is incorrect!").isEmail(),
     check("phone", "Phone cannot be empty!").not().isEmpty(),
     check("phone", "Phone number is invalid!").isLength({ min: 10, max: 10 }),
+    check("address", "Address cannot be empty!").not().isEmpty(),
     check("password", "Password cannot be empty!").not().isEmpty(),
     check("password", "Password should be between 6-16 characters.)").isLength({
       min: 6,
@@ -37,6 +38,22 @@ Router.post("/login", loginProfile);
 //start user profile
 //show currently logged in user profile details
 Router.get("/currentProfile", auth.verifyUser, getProfile);
+
+//update user profile
+Router.put(
+  "/updateProfile",
+  [
+    check("firstname", "Firstname cannot be empty!").not().isEmpty(),
+    check("lastname", "Lastname cannot be empty!").not().isEmpty(),
+    check("email", "Email cannot be empty!").not().isEmpty(),
+    check("email", "Email format is incorrect!").isEmail(),
+    check("phone", "Phone cannot be empty!").not().isEmpty(),
+    check("phone", "Phone number is invalid!").isLength({ min: 10, max: 10 }),
+    check("address", "Address cannot be empty!").not().isEmpty(),
+  ],
+  auth.verifyUser,
+  putUpdateProfile
+);
 
 //end user profile
 

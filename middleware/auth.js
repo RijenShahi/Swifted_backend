@@ -26,24 +26,6 @@ module.exports.verifyUser = async (req, res, next) => {
   }
 };
 
-// module.exports.verifyUser = async function (req, res, next) {
-//   const token = req.headers.authorization.split(" ")[1];
-//   console.log(token);
-//   const userData = jwt.verify(token, "secretkey");
-
-//   if (!token) {
-//     return res.status(401).json({ error: "No token was found!" });
-//   }
-//   try {
-//     const userProfile = await UserProfile.findOne({ _id: userData.accID });
-//     return (req.result = userProfile);
-//     next();
-//   } catch (err) {
-//     console.log("Here", err);
-//     res.status(401).json({ message: "Authentication Failed." });
-//   }
-// };
-
 //guard for admin
 module.exports.verifyAdmin = function (req, res, next) {
   if (!req.UserProfile) {
