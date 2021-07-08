@@ -50,25 +50,32 @@ module.exports.registerProfile = async (req, res) => {
   }
 };
 
-//log into account
+//login into account
 module.exports.loginProfile = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await UserProfile.findOne({ username }).select("+password");
+    const userData = await UserProfile.findOne({ username }).select(
+      "+password"
+    );
 
-    if (user === null)
+    if (userData === null)
       return res.status(400).json({
         success: false,
         error:
           "User unavailable! Consider registering if you're new to this site.",
       });
 
-    const passwordVerification = await verifyPassword(password, user.password);
+    const passwordVerification = await verifyPassword(
+      password,
+      userData.password
+    );
     if (passwordVerification) {
-      const jwt = createToken(user);
+      const jwt = createToken(userData);
       return res.status(200).json({
         success: true,
         token: jwt,
+        message: "Authentication Succeed!",
+        data: userData,
       });
     } else {
       return res.status(400).json({
@@ -80,6 +87,26 @@ module.exports.loginProfile = async (req, res) => {
     console.log(error);
     return res
       .status(500)
-      .json({ success: false, error: "Sorry! Couldn't log in into account." });
+      .json({ success: false, error: "Sorry! Couldn't login into account." });
   }
 };
+
+//start user profiling
+//show currently logged in user profile details
+module.exports.getProfile = async (req, res) => {
+  try {
+    const id = req.user._id;
+    const user = await UserProfile.findById(id, { password: 0 });
+
+    if (user === null) {
+      return res.status(201).json({ success: false, error: "User not Found" });
+    }
+
+    return res.json({ success: true, user });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ success: false, error: "No User Found" });
+  }
+};
+
+//end

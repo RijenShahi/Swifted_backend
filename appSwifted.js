@@ -11,7 +11,7 @@ const connectDB = require("./database/database");
 const app = express();
 app.use(express.json());
 
-app.use(userProfileRoute);
+app.use("/swiftedAPI/userProfile", userProfileRoute);
 
 app.listen(PORT, (err) => {
   if (err) throw err;

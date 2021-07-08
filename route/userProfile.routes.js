@@ -1,9 +1,15 @@
 const express = require("express");
 const Router = express.Router();
 const { check, validationResult } = require("express-validator");
+const auth = require("../middleware/auth");
 
 //controllers
-const { registerProfile, loginProfile } = require("../controllers/users");
+const {
+  registerProfile,
+  loginProfile,
+  getProfile,
+  putUpdateProfile,
+} = require("../controllers/users");
 
 //route for user registration
 Router.post(
@@ -27,5 +33,11 @@ Router.post(
 
 //route for user login
 Router.post("/login", loginProfile);
+
+//start user profile
+//show currently logged in user profile details
+Router.get("/currentProfile", auth.verifyUser, getProfile);
+
+//end user profile
 
 module.exports = Router;

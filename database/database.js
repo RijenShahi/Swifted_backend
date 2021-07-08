@@ -7,6 +7,7 @@ module.exports = async (MONGO_URI) => {
       useCreateIndex: true,
       useUnifiedTopology: true,
     });
+    console.log("MongoDB is connected");
   } catch (err) {
     console.log(err);
   }
