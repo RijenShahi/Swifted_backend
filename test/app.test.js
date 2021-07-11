@@ -55,17 +55,17 @@ describe("User Testing", ()=>{
     return checkProfile.findOne({"_id":Object("60e831fb8f3c4f1d482bc2c1")})
     } )
  
-    // //Update Profile Testing
-    // it ("Update Profile Test", async() => {
-    //     const status = await checkProfile.updateOne({"_id":Object("60e831fb8f3c4f1d482bc2c1")
-    // },
-    // {
-    //     $set: {
-    //         "phone": "98123456789",
-    //         "address": "donetest"
-    //     }
+    //Update Profile Testing
+    it ("Update Profile Test", async() => {
+        const status = await checkProfile.updateOne({"_id":Object("60e831fb8f3c4f1d482bc2c1")
+    },
+    {
+        $set: {
+            "phone": "98123456789",
+            "address": "donetest"
+        }
     
-    // })
+    })
     
     //     expect(status.ok).toBe(1)
     // })
