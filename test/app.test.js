@@ -48,12 +48,12 @@ describe("User Testing", ()=>{
        
     })
  
-    // // Check Profile Testing
-    // it ("Check User Profile Test", async() => {
-    //     const status = await checkProfile.findById({"_id":Object("60e831fb8f3c4f1d482bc2c1")
-    // })
-    // return checkProfile.findOne({"_id":Object("60e831fb8f3c4f1d482bc2c1")})
-    // } )
+    // Check Profile Testing
+    it ("Check User Profile Test", async() => {
+        const status = await checkProfile.findById({"_id":Object("60e831fb8f3c4f1d482bc2c1")
+    })
+    return checkProfile.findOne({"_id":Object("60e831fb8f3c4f1d482bc2c1")})
+    } )
  
     // //Update Profile Testing
     // it ("Update Profile Test", async() => {
