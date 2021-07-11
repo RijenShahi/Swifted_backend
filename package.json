@@ -5,7 +5,8 @@
   "main": "appSwifted.js",
   "scripts": {
     "dev": "nodemon appSwifted.js",
-    "start": "node appSwifted.js"
+    "start": "node appSwifted.js",
+    "test": "jest"
   },
   "author": "Birendra Mahara, Khadga Narayan Chaudhary, Prayash Kumar Shrestha, Rijen Shahi, Shrijan Kumar Budhathoki",
   "license": "ISC",
@@ -13,8 +14,10 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "express-validator": "^6.12.0",
+    "jest": "^27.0.6",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.2",
-    "nodemon": "^2.0.9"
+    "nodemon": "^2.0.9",
+    "yarn": "^1.22.10"
   }
 }
