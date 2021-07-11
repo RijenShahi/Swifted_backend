@@ -38,15 +38,15 @@ describe("User Testing", ()=>{
         })
     })
  
-    // // Login Testing
-    // it("User Login Testing", async() => {
-    //    const data = {
-    //        "username": "test9",
-    //        "password": "123456"
-    //    }
-    //    return loginProfile.findOne({data});
+    // Login Testing
+    it("User Login Testing", async() => {
+       const data = {
+           "username": "test9",
+           "password": "123456"
+       }
+       return loginProfile.findOne({data});
        
-    // })
+    })
  
     // // Check Profile Testing
     // it ("Check User Profile Test", async() => {
