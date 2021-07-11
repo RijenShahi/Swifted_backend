@@ -67,7 +67,7 @@ describe("User Testing", ()=>{
     
     })
     
-    //     expect(status.ok).toBe(1)
-    // })
+        expect(status.ok).toBe(1)
+    })
  
 })
