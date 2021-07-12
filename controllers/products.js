@@ -3,15 +3,19 @@ const { validationResult } = require("express-validator");
 const nodemon = require("nodemon");
 
 module.exports.insertProduct = async (req, res) => {
+  if (req.file == undefined) {
+    return res.status(202).json({ message: "Invalid File!", success: false });
+  }
+
   const {
     productName,
     productDescription,
     productVendor,
     productCategory,
     productPrice,
-    productImage,
     productRating,
   } = req.body;
+  const productImage = req.file.path;
 
   try {
     productData = Product({
