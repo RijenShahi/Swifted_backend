@@ -5,7 +5,8 @@
   "main": "appSwifted.js",
   "scripts": {
     "dev": "nodemon appSwifted.js",
-    "start": "node appSwifted.js"
+    "start": "node appSwifted.js",
+    "test": "jest"
   },
   "author": "Birendra Mahara, Khadga Narayan Chaudhary, Prayash Kumar Shrestha, Rijen Shahi, Shrijan Kumar Budhathoki",
   "license": "ISC",

@@ -1,5 +1,6 @@
 const express = require("express");
 const userProfileRoute = require("./route/userProfile.routes");
+const productRoute = require("./route/product.routes");
 
 // constants
 const PORT = 90;
@@ -12,6 +13,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/swiftedAPI/userProfile", userProfileRoute);
+app.use("/swiftedAPI/products", productRoute);
 
 app.listen(PORT, (err) => {
   if (err) throw err;

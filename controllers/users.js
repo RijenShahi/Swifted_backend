@@ -113,8 +113,6 @@ module.exports.getProfile = async (req, res) => {
 module.exports.putUpdateProfile = async (req, res) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
-    const { firstname, lastname, email, phone, address } = req.body;
-
     try {
       const id = req.user.id;
       const { firstname, lastname, email, phone, address } = req.body;
