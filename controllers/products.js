@@ -13,6 +13,7 @@ module.exports.insertProduct = async (req, res) => {
     productVendor,
     productCategory,
     productPrice,
+    productStocks,
     productRating,
   } = req.body;
   const productImage = req.file.path;
@@ -24,6 +25,7 @@ module.exports.insertProduct = async (req, res) => {
       productVendor,
       productCategory,
       productPrice,
+      productStocks,
       productImage,
       productRating,
     });
