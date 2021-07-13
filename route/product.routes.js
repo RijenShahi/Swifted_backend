@@ -15,7 +15,6 @@ Router.post(
   "/insert",
   upload.single("productImage"),
   auth.verifyUser,
-  auth.verifyVendor,
   insertProduct
 );
 

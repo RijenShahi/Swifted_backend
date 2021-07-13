@@ -1,7 +1,7 @@
 const express = require("express");
 const userProfileRoute = require("./route/userProfile.routes");
 const productRoute = require("./route/product.routes");
-const cors = require('cors');
+const cors = require("cors");
 
 // constants
 const PORT = 90;
