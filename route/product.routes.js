@@ -4,7 +4,11 @@ const auth = require("../middleware/auth");
 const upload = require("../middleware/upload");
 
 //controllers
-const { insertProduct, displayProducts } = require("../controllers/products");
+const {
+  insertProduct,
+  displayProducts,
+  displaySelectedProduct,
+} = require("../controllers/products");
 
 //route for vendor who inserts products
 Router.post(
@@ -21,6 +25,14 @@ Router.get(
   auth.verifyUser,
   auth.verifyVendor,
   displayProducts
+);
+
+//route for displaying only selected product
+Router.get(
+  "/selectedProduct/:id",
+  auth.verifyUser,
+  auth.verifyVendor,
+  displaySelectedProduct
 );
 
 module.exports = Router;

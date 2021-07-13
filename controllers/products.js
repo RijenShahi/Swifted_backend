@@ -49,11 +49,25 @@ module.exports.insertProduct = async (req, res) => {
 module.exports.displayProducts = async (req, res) => {
   try {
     const productData = await Product.find();
-    return res.status(200).json({ success: true, productData: productData });
+    return res.status(200).json({ success: true, data: productData });
   } catch (error) {
     console.log(error);
     return res
       .status(500)
       .json({ success: false, error: "Product/s not found." });
+  }
+};
+
+//displays only selected product
+module.exports.displaySelectedProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const singleProduct = await Product.findOne({ _id: id });
+    return res.status(200).json({ succtss: true, data: singleProduct });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, error: "Product not found." });
   }
 };
