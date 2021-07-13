@@ -20,7 +20,7 @@ module.exports.insertProduct = async (req, res) => {
   const productImage = req.file.path;
 
   try {
-    productData = Product({
+    const productData = new Product({
       productName,
       productDescription,
       productVendor,
@@ -29,6 +29,7 @@ module.exports.insertProduct = async (req, res) => {
       productStocks,
       productImage,
       productRating,
+      userID: req.user._id,
     });
 
     await productData.save();
@@ -45,11 +46,20 @@ module.exports.insertProduct = async (req, res) => {
   }
 };
 
-//displays all the products
+//displays all the products according to the user type
 module.exports.displayProducts = async (req, res) => {
   try {
-    const productData = await Product.find();
-    return res.status(200).json({ success: true, data: productData });
+    // check if admin or vendor
+    // shows all the added products to admin
+    const user = req.user;
+    if (user.userType === "Admin") {
+      const productData = await Product.find();
+      return res.status(200).json({ success: true, data: productData });
+    } else {
+      // shows all the products which the vendor added themselves
+      const productData = await Product.find({ userID: user._id });
+      return res.status(200).json({ success: true, data: productData });
+    }
   } catch (error) {
     console.log(error);
     return res

@@ -19,20 +19,10 @@ Router.post(
   insertProduct
 );
 
-//route for showing the products that vendor added
-Router.get(
-  "/displayProducts",
-  auth.verifyUser,
-  auth.verifyVendor,
-  displayProducts
-);
+//route for showing the products according to the userType
+Router.get("/displayProducts", auth.verifyUser, displayProducts);
 
 //route for displaying only selected product
-Router.get(
-  "/selectedProduct/:id",
-  auth.verifyUser,
-  auth.verifyVendor,
-  displaySelectedProduct
-);
+Router.get("/selectedProduct/:id", auth.verifyUser, displaySelectedProduct);
 
 module.exports = Router;
