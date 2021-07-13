@@ -1,7 +1,9 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+//const { insertProduct } = require('../controllers/products');
 const registerProfile = require('../models/userProfile.models')
 const loginProfile = require('../models/userProfile.models')
 const checkProfile = require('../models/userProfile.models');
+const insertProduct = require('../models/product.models')
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
  
@@ -68,6 +70,24 @@ describe("User Testing", ()=>{
     })
     
         expect(status.ok).toBe(1)
+    })
+
+    //Insert Product Testing Method
+    it ("should insert a product", async () => {
+        const product = {
+            productName: "Nike Shoe",
+            productDescription: "Good for Sports",
+            productVendor: "Hello Chy",
+            productCategory: "Sportswear",
+            productPrice: "5000",
+            productStocks: "30",
+            productImage: "NoImg.jpg",
+            userID: Object("60ed4a004df0a01bf8f2096d")
+        }
+        return insertProduct.create(product)
+        .then((insert_product) =>{
+            expect(insert_product.productName).toEqual("Nike Shoe")
+        })
     })
  
 })
