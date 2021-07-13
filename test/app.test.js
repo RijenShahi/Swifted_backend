@@ -89,17 +89,16 @@ describe("User Testing", ()=>{
         })
     })
 
-    //     // Display product Testing
-    // it ("should display a product", async () =>{
-    //     const status = await displayProducts.findById({
-    //         "_id":Object("60e831fb8f3c4f1d482bc2c1")
-    //     })
-    //     return displayProducts.findOne(status)
-    //     .then ((display_products) => {
-    //         expect(display_products.productName).toEqual("Nike Shoe")
-    //     })
-    // })
+        // Display product Testing
+    it ("should display a product", async () =>{
+        const status = await displayProducts.findById({
+            "_id":Object("60e831fb8f3c4f1d482bc2c1")
+        })
+        return displayProducts.findOne(status)
+        .then ((display_products) => {
+            expect(display_products.productName).toEqual("Nike Shoe")
+        })
+    })
 
-    //
  
 })
