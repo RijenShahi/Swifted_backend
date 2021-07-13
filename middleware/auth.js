@@ -39,9 +39,9 @@ module.exports.verifyAdmin = function (req, res, next) {
 //guard for vendor
 module.exports.verifyVendor = function (req, res, next) {
   if (!req.user) {
-    return res.status(401).json({ message: "Unauthorized User! 1" });
+    return res.status(401).json({ message: "Unauthorized User!" });
   } else if (req.user.userType !== "Vendor") {
-    return res.status(401).json({ message: "Unauthorized User! 2" });
+    return res.status(401).json({ message: "Unauthorized User!" });
   }
   next();
 };

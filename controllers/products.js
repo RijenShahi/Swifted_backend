@@ -2,6 +2,7 @@ const Product = require("../models/product.models");
 const { validationResult } = require("express-validator");
 const nodemon = require("nodemon");
 
+//insert product details - vendor
 module.exports.insertProduct = async (req, res) => {
   if (req.file == undefined) {
     return res.status(202).json({ message: "Invalid File!", success: false });
@@ -41,5 +42,18 @@ module.exports.insertProduct = async (req, res) => {
     return res
       .status(400)
       .json({ success: false, error: "Could not add product." });
+  }
+};
+
+//displays all the products
+module.exports.displayProducts = async (req, res) => {
+  try {
+    const productData = await Product.find();
+    return res.status(200).json({ success: true, productData: productData });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, error: "Product/s not found." });
   }
 };
