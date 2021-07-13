@@ -1,6 +1,7 @@
 const express = require("express");
 const userProfileRoute = require("./route/userProfile.routes");
 const productRoute = require("./route/product.routes");
+const cors = require('cors');
 
 // constants
 const PORT = 90;
@@ -11,7 +12,7 @@ const connectDB = require("./database/database");
 
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 app.use("/swiftedAPI/userProfile", userProfileRoute);
 app.use("/swiftedAPI/products", productRoute);
 
