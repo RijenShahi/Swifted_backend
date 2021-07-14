@@ -8,6 +8,7 @@ const {
   insertProduct,
   displayProducts,
   displaySelectedProduct,
+  updateProduct,
 } = require("../controllers/products");
 
 //route for vendor who inserts products
@@ -23,5 +24,17 @@ Router.get("/displayProducts", auth.verifyUser, displayProducts);
 
 //route for displaying only selected product
 Router.get("/selectedProduct/:id", auth.verifyUser, displaySelectedProduct);
+
+//    /displayProducts?status=PENDING
+// const status = req.query.status
+// {status}
+
+//route for updating the selected product
+Router.put(
+  "/updateProduct/:id",
+  upload.single("productImage"),
+  auth.verifyUser,
+  updateProduct
+);
 
 module.exports = Router;
