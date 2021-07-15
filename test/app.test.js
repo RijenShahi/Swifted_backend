@@ -6,6 +6,7 @@ const insertProduct = require('../models/product.models');
 const displayProducts = require('../models/product.models');
 const displaySelectedProduct = require('../models/product.models');
 const updateProduct = require('../models/product.models');
+const deleteProduct = require('../models/product.models');
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
  
@@ -121,6 +122,14 @@ describe("User Testing", ()=>{
                     productPrice: "15000"
                 }
             })
+        expect(status.ok).toBe(1)
+    })
+
+    // Delete Product Testing
+    it ("should delete product", async () => {
+        const status = await deleteProduct.deleteOne({
+            "_id":Object("60e831fb8f3c4f1d482bc2c1")
+        })
         expect(status.ok).toBe(1)
     })
  
