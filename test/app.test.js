@@ -3,7 +3,9 @@ const registerProfile = require('../models/userProfile.models')
 const loginProfile = require('../models/userProfile.models')
 const checkProfile = require('../models/userProfile.models');
 const insertProduct = require('../models/product.models');
-
+const displayProducts = require('../models/product.models');
+const displaySelectedProduct = require('../models/product.models');
+const updateProduct = require('../models/product.models');
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
  
@@ -111,6 +113,15 @@ describe("User Testing", ()=>{
         })
     })
 
-    
+    // Update Selected Product Testing
+    it ("should update selected product", async () => {
+        const status = await updateProduct.updateOne({_id:Object("60eddb7b63e2ad0fe876179d")}, {
+                $set : {
+                    productName: "Latido Jacket 1",
+                    productPrice: "15000"
+                }
+            })
+        expect(status.ok).toBe(1)
+    })
  
 })
