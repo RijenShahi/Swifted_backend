@@ -9,6 +9,7 @@ const {
   displayProducts,
   displaySelectedProduct,
   updateProduct,
+  deleteProduct,
 } = require("../controllers/products");
 
 //route for vendor who inserts products
@@ -36,5 +37,8 @@ Router.put(
   auth.verifyUser,
   updateProduct
 );
+
+//route for deleting the selected product
+Router.post("/deleteProduct/:id", auth.verifyUser, deleteProduct);
 
 module.exports = Router;

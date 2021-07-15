@@ -127,7 +127,7 @@ module.exports.updateProduct = async (req, res) => {
     const updatedProduct = await product.save();
 
     return res.status(201).json({
-      message: "Product updated successfully.",
+      message: "Product Updated Successfully.",
       success: true,
       data: updatedProduct,
     });
@@ -136,5 +136,21 @@ module.exports.updateProduct = async (req, res) => {
     return res
       .status(500)
       .json({ success: false, error: "Product could not be updated!" });
+  }
+};
+
+// delete selected product
+module.exports.deleteProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Product.deleteOne({ _id: id });
+    return res
+      .status(201)
+      .json({ message: "Product Deleted Successfully.", success: true });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, error: "Product could not be deleted!" });
   }
 };
