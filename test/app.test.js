@@ -7,6 +7,7 @@ const displayProducts = require('../models/product.models');
 const displaySelectedProduct = require('../models/product.models');
 const updateProduct = require('../models/product.models');
 const deleteProduct = require('../models/product.models');
+const addToCart = require('../models/cart.models');
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
  
@@ -131,6 +132,20 @@ describe("User Testing", ()=>{
             "_id":Object("60e831fb8f3c4f1d482bc2c1")
         })
         expect(status.ok).toBe(1)
+    })
+
+    // Add to Cart Testing
+    it ("should add the product to the cart", async () => {
+        const cart = {
+            "user_id": "660ec7b10410d0517ccd312bb",
+            "product_id": "60f060508464b72e28a2e42e",
+            "quantity": 6,
+            "price": 100,
+        }
+        return addToCart.create(cart)
+        .then((cart_ret)=> {
+            expect(cart_ret.quantity).toEqual(6)
+        })
     })
  
 })
