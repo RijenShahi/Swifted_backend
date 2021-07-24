@@ -28,8 +28,18 @@ const createToken = (user) => {
   );
 };
 
+const formatTime = (n)=>{
+  let num = n;
+  if(num < 10)
+  {
+    num = "0"+n
+  }
+  return num
+}
+
 module.exports = {
   hashPassword,
   verifyPassword,
   createToken,
+  formatTime
 };

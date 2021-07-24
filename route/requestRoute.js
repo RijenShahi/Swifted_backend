@@ -4,10 +4,15 @@ const RequestVendor = require('../models/requestVendor')
 const UserProfile = require('../models/userProfile.models')
 const auth = require('../middleware/auth')
 const upload = require('../middleware/upload')
+const {formatTime} = require('../utils/utils')
 
 router.post('/beAVendor',upload.fields([{"name":"citizenShip",maxCount:1},{"name":"logo",maxCount:1}]),auth.verifyUser,(req,res)=>{
     try
     {
+        if(req.files == undefined)
+        {
+            return res.status(202).json({"success":false,"message":"Inappropriate file format."})
+        }
         if(req.user.userType != "Customer")
         {
             return res.status(202).json({"success":false,"message":"Only Customer can become a vendor."})
@@ -21,7 +26,7 @@ router.post('/beAVendor',upload.fields([{"name":"citizenShip",maxCount:1},{"name
             let contact = req.body['contact'];
             let today = new Date();
             let requestDate = `${today.getFullYear()}-${formatTime(today.getMonth()+1)}-${formatTime(today.getDate())}`;
-            const vendorObj = new ProfessionRequest({"user_id":req.user._id,"storeName":storeName,"requestDate":requestDate,"citizenShip":citizenShip,"logo":logo,"address":currentAddress,"contact":contact});
+            const vendorObj = new RequestVendor({"user_id":req.user._id,"storeName":storeName,"requestDate":requestDate,"citizenShip":citizenShip,"logo":logo,"address":currentAddress,"contact":contact});
             vendorObj.save().then((data)=>{
                 return res.status(200).json({"success":true,"message":"Request successful"})
             }).catch((err)=>{
@@ -33,6 +38,7 @@ router.post('/beAVendor',upload.fields([{"name":"citizenShip",maxCount:1},{"name
     }
    catch(err)
    {
+       console.log(err)
     return res.status(401).json({"success":false,"message":err})
    }
 })
