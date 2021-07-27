@@ -2,6 +2,7 @@ const express = require("express");
 const userProfileRoute = require("./route/userProfile.routes");
 const productRoute = require("./route/product.routes");
 const cartRoute = require("./route/cart.routes");
+const orderRoute = require("./route/order.routes");
 const cors = require("cors");
 
 // constants
@@ -17,6 +18,7 @@ app.use(cors());
 app.use("/swiftedAPI/userProfile", userProfileRoute);
 app.use("/swiftedAPI/products", productRoute);
 app.use("/swiftedAPI/cart", cartRoute);
+app.use("/swiftedAPI/order", orderRoute);
 
 app.listen(PORT, (err) => {
   if (err) throw err;
