@@ -18,7 +18,7 @@ app.use(cors());
 app.use("/swiftedAPI/userProfile", userProfileRoute);
 app.use("/swiftedAPI/products", productRoute);
 app.use("/swiftedAPI/cart", cartRoute);
-app.use("/swiftedAPI/order", orderRoute);
+app.use("/swiftedAPI", orderRoute);
 
 app.listen(PORT, (err) => {
   if (err) throw err;

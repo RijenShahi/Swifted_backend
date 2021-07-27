@@ -18,14 +18,15 @@ module.exports.addToCart = async (req, res) => {
       Cart.find({}).then((data) => {
         Product.findOne({ _id: pid }).then((data2) => {
           if (data2 != null) {
-            let price;
+            let totalPrice;
 
-            price = quantity * data2.productPrice;
+            totalPrice = quantity * data2.productPrice;
 
             const userCart = new Cart({
               productID: pid,
               quantity: quantity,
-              price: price,
+              price: data2.productPrice,
+              totalPrice: totalPrice,
               addedAt: addedAt,
               userID: req.user._id,
             });

@@ -26,13 +26,20 @@ const orderSchema = mongoose.Schema({
   },
   paymentMethod: {
     type: String,
-    enum: ["Cash On Delivery, Credit/Debit, E-Sewa/Khalti"],
+    enum: ["COD", "Credit/Debit", "E-Sewa/Khalti"],
     required: true,
+    default: "COD",
   },
-  cartID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "AddToCart",
-  },
+  cartItems: [
+    {
+      productName: String,
+      productImage: String,
+      price: Number,
+      quantity: Number,
+      totalPrice: Number,
+    },
+  ],
+  orderTotalPrice: Number,
 });
 
 const Order = mongoose.model("Order", orderSchema);

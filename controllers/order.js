@@ -6,25 +6,50 @@ const nodemon = require("nodemon");
 //For making order
 module.exports.order = async (req, res) => {
   try {
-    const { firstname, lastname, email, address, phone } = req.body;
-    const cid = req.body["cartID"];
+    console.log("hit");
+    const { firstName, lastName, email, address, phone } = req.body;
+    const userID = req.user._id;
 
-    Cart.findOne({ _id: pid }).then((data2) => {
-      const orderData = new Order({
-        firstname,
-        lastname,
-        email,
-        address,
-        phone,
-        cartID: cid,
-      });
+    const cartItems = await Cart.find({ userID }).populate("productID");
 
-      await orderData.save();
-      return res.status(200).json({
-        success: true,
-        productData,
-        message: "Order placed successfully.",
-      });
+    // reformatting the cart items
+    let orderTotalPrice = 0;
+    const formattedCart = cartItems.map((item) => {
+      console.log(item.productID.productName);
+      const product = item.productID;
+      const obj = {
+        productName: product.productName,
+        productImage: product.productImage,
+        price: product.price,
+        quantity: item.quantity,
+        totalPrice: item.quantity * item.price,
+      };
+      orderTotalPrice += obj.totalPrice;
+      return obj;
     });
-  } catch (error) {}
+    console.log(formattedCart);
+
+    const orderData = new Order({
+      firstName,
+      lastName,
+      email,
+      address,
+      phone,
+      cartItems: formattedCart,
+      orderTotalPrice,
+    });
+    console.log(orderData);
+
+    const order = await orderData.save();
+    const tst = await Cart.deleteMany({ userID });
+    return res.status(200).json({
+      success: true,
+
+      message: "Order placed successfully.",
+      order,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error.message });
+  }
 };
