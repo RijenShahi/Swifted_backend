@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//model for cart
 const cartSchema = mongoose.Schema({
   userID: {
     type: mongoose.Schema.Types.ObjectId,

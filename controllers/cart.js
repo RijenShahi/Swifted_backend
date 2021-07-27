@@ -3,7 +3,7 @@ const Product = require("../models/product.models");
 const { validationResult } = require("express-validator");
 const nodemon = require("nodemon");
 
-// add the product to cart
+// add the product/s to cart
 module.exports.addToCart = async (req, res) => {
   try {
     const pid = req.body["productID"];
