@@ -8,6 +8,7 @@ const displaySelectedProduct = require('../models/product.models');
 const updateProduct = require('../models/product.models');
 const deleteProduct = require('../models/product.models');
 const addToCart = require('../models/cart.models');
+const order = require('../models/order.modals')
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
  
@@ -137,15 +138,31 @@ describe("User Testing", ()=>{
     // Add to Cart Testing
     it ("should add the product to the cart", async () => {
         const cart = {
-            "user_id": "660ec7b10410d0517ccd312bb",
-            "product_id": "60f060508464b72e28a2e42e",
-            "quantity": 6,
-            "price": 100,
+            "userID" : "60ec7b10410d0517ccd312bb",
+            "productID" : "60eda643ebfa5025b04c28ab",
+            "quantity" : "3",
+            "addAt": "2021-05-07"
         }
         return addToCart.create(cart)
         .then((cart_ret)=> {
-            expect(cart_ret.quantity).toEqual(6)
+            expect(cart_ret.quantity).toEqual(3)
         })
     })
- 
+    
+    // Order of Product Testing
+    it (" should order the product", async () => {
+        const orders = {
+            "firstName": "Khadga",
+            "lastName": "Chy",
+            "email": "khadgachy@gmail.com",
+            "phone": "9812346754",
+            "address": "Budhabare",
+            "paymentMethod" : "COD",
+            "cartItems": Object("60eddb7b63e2ad0fe876179d")
+        }
+        return order.create(orders)
+        .then((order_ret) => {
+            expect(order_ret.address).toEqual('Budhabare')
+        })
+    })
 })
