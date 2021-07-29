@@ -61,3 +61,52 @@ module.exports.addToCart = async (req, res) => {
       .json({ success: false, error: "Could not add product to cart!" });
   }
 };
+
+//update product/s on cart
+module.exports.updateCart = async (req, res) => {
+  try {
+    let pid = req.body["productID"];
+    let qty = req.body["quantity"];
+    const cartData = await Cart.findOne({
+      productID: pid,
+      userID: req.user._id,
+    });
+
+    if (cartData != null) {
+      // newline
+      const productData = await Product.findOne({ _id: pid });
+      if (productData != null) {
+        // there is product data
+        // check if stock is available
+        if (productData.productStocks > qty) {
+          let totalPrice = qty * productData.productPrice;
+          cartData.totalPrice = totalPrice;
+          cartData.productID = pid;
+          cartData.quantity = qty;
+          const updatedItem = await cartData.save();
+          // updating product stock
+          const currentStock = productData.productStocks - qty;
+          productData.productStocks = currentStock;
+          await productData.save();
+          return res
+            .status(200)
+            .json({ success: true, message: "Product Item Updated." });
+        } else {
+          // Quantity not sufficient.
+          return res
+            .status(202)
+            .json({ success: false, message: "Quantity not sufficient." });
+        }
+      } else {
+        return res
+          .status(202)
+          .json({ success: false, message: "Product unavailable!" });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .json({ success: false, error: "Could update the cart item!" });
+  }
+};

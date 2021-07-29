@@ -6,7 +6,7 @@ const nodemon = require("nodemon");
 //For making order
 module.exports.order = async (req, res) => {
   try {
-    console.log("hit");
+    console.log("Ordering the cart items");
     const { firstName, lastName, email, address, phone } = req.body;
     const userID = req.user._id;
 
