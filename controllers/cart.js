@@ -18,29 +18,42 @@ module.exports.addToCart = async (req, res) => {
       Cart.find({}).then((data) => {
         Product.findOne({ _id: pid }).then((data2) => {
           if (data2 != null) {
-            let totalPrice;
+            if (data2.productStocks > quantity) {
+              let totalPrice;
 
-            totalPrice = quantity * data2.productPrice;
+              totalPrice = quantity * data2.productPrice;
 
-            const userCart = new Cart({
-              productID: pid,
-              quantity: quantity,
-              price: data2.productPrice,
-              totalPrice: totalPrice,
-              addedAt: addedAt,
-              userID: req.user._id,
-            });
-            userCart
-              .save()
-              .then((result) => {
-                return res.status(200).json({
-                  success: true,
-                  message: "Product has been added to your cart.",
-                });
-              })
-              .catch((err) => {
-                return res.status(404).json({ success: true, message: err });
+              const userCart = new Cart({
+                productID: pid,
+                quantity: quantity,
+                price: data2.productPrice,
+                totalPrice: totalPrice,
+                addedAt: addedAt,
+                userID: req.user._id,
               });
+
+              // quantity of product will be calculated
+              const currentStock = data2.productStocks - quantity;
+              data2.productStocks = currentStock;
+              data2.save();
+
+              userCart
+                .save()
+                .then((result) => {
+                  return res.status(200).json({
+                    success: true,
+                    message: "Product has been added to your cart.",
+                  });
+                })
+                .catch((err) => {
+                  return res.status(404).json({ success: true, message: err });
+                });
+            } else {
+              // Quantity not sufficient.
+              return res
+                .status(202)
+                .json({ success: false, message: "Quantity out of stock!" });
+            }
           } else {
             return res.status(202).json({
               success: false,
@@ -95,12 +108,12 @@ module.exports.updateCart = async (req, res) => {
           // Quantity not sufficient.
           return res
             .status(202)
-            .json({ success: false, message: "Quantity not sufficient." });
+            .json({ success: false, message: "Quantity out of stock!" });
         }
       } else {
         return res
           .status(202)
-          .json({ success: false, message: "Product unavailable!" });
+          .json({ success: false, message: "Product unavailable! 1" });
       }
     }
   } catch (error) {
