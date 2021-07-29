@@ -179,13 +179,13 @@ describe("User Testing", ()=>{
         expect(status.ok).toBe(1)
     })
     
-    // // Delete Cart Testing
-    // it (" should delete the product from the cart", async () => {
-    //     const status = await deleteCart.deleteOne({
-    //         "_id":Object("6100dd4bcad9fc2db4afe110")
-    //     })
-    //     expect(status.ok).toBe(1)
-    // })
+    // Delete Cart Testing
+    it (" should delete the product from the cart", async () => {
+        const status = await deleteCart.deleteOne({
+            "_id":Object("6100dd4bcad9fc2db4afe110")
+        })
+        expect(status.ok).toBe(1)
+    })
 
 
 })
