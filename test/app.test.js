@@ -9,6 +9,9 @@ const updateProduct = require('../models/product.models');
 const deleteProduct = require('../models/product.models');
 const addToCart = require('../models/cart.models');
 const order = require('../models/order.modals')
+const updateCart = require('../models/cart.models');
+const  deleteCart = require('../models/cart.models');
+
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
  
@@ -158,11 +161,31 @@ describe("User Testing", ()=>{
             "phone": "9812346754",
             "address": "Budhabare",
             "paymentMethod" : "COD",
-            "cartItems": Object("60eddb7b63e2ad0fe876179d")
+            "cartItems": Object("6100dd4bcad9fc2db4afe110")
         }
         return order.create(orders)
         .then((order_ret) => {
             expect(order_ret.address).toEqual('Budhabare')
         })
     })
+
+    // Testing of Update Cart
+    it (" should update the cart", async () => {
+        const status = await updateCart.updateOne({_id:Object("6100dd4bcad9fc2db4afe110")},{
+            $set : {
+                quantity : "6"
+            }
+        })
+        expect(status.ok).toBe(1)
+    })
+    
+    // // Delete Cart Testing
+    // it (" should delete the product from the cart", async () => {
+    //     const status = await deleteCart.deleteOne({
+    //         "_id":Object("6100dd4bcad9fc2db4afe110")
+    //     })
+    //     expect(status.ok).toBe(1)
+    // })
+
+
 })
