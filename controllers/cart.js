@@ -84,7 +84,6 @@ module.exports.updateCart = async (req, res) => {
     });
 
     if (cartData != null) {
-      // newline
       const productData = await Product.findOne({ _id: pid });
       if (productData != null) {
         // there is product data
@@ -111,13 +110,41 @@ module.exports.updateCart = async (req, res) => {
       } else {
         return res
           .status(202)
-          .json({ success: false, message: "Product unavailable! 1" });
+          .json({ success: false, message: "Product unavailable!" });
       }
     }
   } catch (error) {
-    console.log(error);
     return res
       .status(400)
       .json({ success: false, error: "Could update the cart item!" });
+  }
+};
+
+//delete product/s on cart
+module.exports.deleteCart = async (req, res) => {
+  try {
+    let cid = req.body["_id"];
+    let pid = req.body["productID"];
+    const cartData = await Cart.findOne({
+      productID: pid,
+      userID: req.user._id,
+      _id: cid,
+    });
+    if (cartData != null) {
+      const cartDelete = await Cart.deleteOne({ _id: cid });
+      if (cartDelete != null) {
+        return res
+          .status(201)
+          .json({ message: "Cart Item Deleted Successfully.", success: true });
+      } else {
+        return res
+          .status(202)
+          .json({ message: "Couldn't delete Cart Item!", success: true });
+      }
+    }
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ success: false, error: "Couldn't find Item!" });
   }
 };
