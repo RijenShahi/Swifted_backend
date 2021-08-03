@@ -12,6 +12,7 @@ const order = require('../models/order.models')
 const updateCart = require('../models/cart.models');
 const  deleteCart = require('../models/cart.models');
 const reteriveCart = require('../models/cart.models');
+const addToWishlist = require('../models/wishlist.models')
 
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
@@ -199,6 +200,18 @@ describe("User Testing", ()=>{
         })
     })
 
-    
+    // Add to Wishlist Testing
+    it (" should add products to wishlist", async () => {
+        const wishlist = {
+            "userID" : "60ec7b10410d0517ccd312bb",
+            "productID" : "60eda643ebfa5025b04c28ab",
+            "price" : "10000",
+            "addAt": "2021-05-07"
+        }
+        return addToWishlist.create(wishlist)
+        .then ((wishlist_ret) => {
+            expect(wishlist_ret.price).toEqual(10000)
+        })
+    })    
 
 })
