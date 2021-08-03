@@ -3,6 +3,7 @@ const userProfileRoute = require("./route/userProfile.routes");
 const productRoute = require("./route/product.routes");
 const cartRoute = require("./route/cart.routes");
 const orderRoute = require("./route/order.routes");
+const wishlistRoute = require("./route/wishlist.routes");
 const cors = require("cors");
 const path = require("path");
 
@@ -21,6 +22,7 @@ app.use("/swiftedAPI/userProfile", userProfileRoute);
 app.use("/swiftedAPI/products", productRoute);
 app.use("/swiftedAPI/cart", cartRoute);
 app.use("/swiftedAPI", orderRoute);
+app.use("/swiftedAPI/wishlist", wishlistRoute);
 
 app.listen(PORT, (err) => {
   if (err) throw err;
