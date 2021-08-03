@@ -11,8 +11,9 @@ const addToCart = require('../models/cart.models');
 const order = require('../models/order.models')
 const updateCart = require('../models/cart.models');
 const  deleteCart = require('../models/cart.models');
-const reteriveCart = require('../models/cart.models');
+const retrieveCart = require('../models/cart.models');
 const addToWishlist = require('../models/wishlist.models')
+const retrieveWishlist = require('../models/wishlist.models')
 
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
@@ -189,14 +190,14 @@ describe("User Testing", ()=>{
         expect(status.ok).toBe(1)
     })
     
-    // Reterive Cart Testing
+    // Retrieve Cart Testing
     it (" should display the product in the cart", async () => {
-        const status = await reteriveCart.findById({
-            "_id":Object("60edbed481babd3170e1225f")
+        const status = await retrieveCart.findById({
+            "_id":Object("610996665683a61540395702")
         })
-        return displayProducts.findOne(status)
-        .then ((reterive_cart) => {
-            expect(reterive_cart.productName).toEqual("Nike Shoe")
+        return retrieveCart.findOne(status)
+        .then ((retrieve_cart) => {
+            expect(retrieve_cart.quantity).toEqual(3)
         })
     })
 
@@ -214,4 +215,14 @@ describe("User Testing", ()=>{
         })
     })    
 
+    // retrieve Wishlist Testing 
+    it ("should retrieve a product in the wishlist", async () => {
+        const status = await retrieveWishlist.findById({
+            "_id":Object("61099731b707c02acc84fb00")
+        })
+        return retrieveWishlist.findOne(status)
+        .then ((retrieve_wishlist) => {
+            expect(retrieve_wishlist.price).toEqual(10000)
+        })
+    })
 })
