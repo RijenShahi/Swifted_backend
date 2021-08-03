@@ -8,9 +8,10 @@ const displaySelectedProduct = require('../models/product.models');
 const updateProduct = require('../models/product.models');
 const deleteProduct = require('../models/product.models');
 const addToCart = require('../models/cart.models');
-const order = require('../models/order.modals')
+const order = require('../models/order.models')
 const updateCart = require('../models/cart.models');
 const  deleteCart = require('../models/cart.models');
+const reteriveCart = require('../models/cart.models');
 
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
@@ -186,6 +187,18 @@ describe("User Testing", ()=>{
         })
         expect(status.ok).toBe(1)
     })
+    
+    // Reterive Cart Testing
+    it (" should display the product in the cart", async () => {
+        const status = await reteriveCart.findById({
+            "_id":Object("60edbed481babd3170e1225f")
+        })
+        return displayProducts.findOne(status)
+        .then ((reterive_cart) => {
+            expect(reterive_cart.productName).toEqual("Nike Shoe")
+        })
+    })
 
+    
 
 })
