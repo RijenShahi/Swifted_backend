@@ -54,3 +54,27 @@ module.exports.addToWishlist = async (req, res) => {
       .json({ success: false, error: "Could not add product to wishlist!" });
   }
 };
+
+//retrieve product/s on wishlist
+module.exports.retrieveWishlist = async (req, res) => {
+  let query = Wishlist.find({ userID: req.user._id })
+    .sort({ addedDate: -1 })
+    .populate({
+      path: "productID",
+    });
+  query
+    .then((data) => {
+      if (data.length > 0) {
+        return res
+          .status(200)
+          .json({ success: true, message: "Data found", data: data });
+      } else {
+        return res
+          .status(200)
+          .json({ success: false, message: "No Data Found", data: data });
+      }
+    })
+    .catch((err) => {
+      return res.status(404).json({ success: false, message: err });
+    });
+};
