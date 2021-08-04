@@ -8,7 +8,13 @@ const displaySelectedProduct = require('../models/product.models');
 const updateProduct = require('../models/product.models');
 const deleteProduct = require('../models/product.models');
 const addToCart = require('../models/cart.models');
-const order = require('../models/order.modals')
+const order = require('../models/order.models')
+const updateCart = require('../models/cart.models');
+const  deleteCart = require('../models/cart.models');
+const retrieveCart = require('../models/cart.models');
+const addToWishlist = require('../models/wishlist.models')
+const retrieveWishlist = require('../models/wishlist.models')
+
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
  
@@ -158,11 +164,65 @@ describe("User Testing", ()=>{
             "phone": "9812346754",
             "address": "Budhabare",
             "paymentMethod" : "COD",
-            "cartItems": Object("60eddb7b63e2ad0fe876179d")
+            "cartItems": Object("6100dd4bcad9fc2db4afe110")
         }
         return order.create(orders)
         .then((order_ret) => {
             expect(order_ret.address).toEqual('Budhabare')
+        })
+    })
+
+    // Testing of Update Cart
+    it (" should update the cart", async () => {
+        const status = await updateCart.updateOne({_id:Object("6100dd4bcad9fc2db4afe110")},{
+            $set : {
+                quantity : "6"
+            }
+        })
+        expect(status.ok).toBe(1)
+    })
+    
+    // Delete Cart Testing
+    it (" should delete the product from the cart", async () => {
+        const status = await deleteCart.deleteOne({
+            "_id":Object("6100dd4bcad9fc2db4afe110")
+        })
+        expect(status.ok).toBe(1)
+    })
+    
+    // Retrieve Cart Testing
+    it (" should display the product in the cart", async () => {
+        const status = await retrieveCart.findById({
+            "_id":Object("610996665683a61540395702")
+        })
+        return retrieveCart.findOne(status)
+        .then ((retrieve_cart) => {
+            expect(retrieve_cart.quantity).toEqual(3)
+        })
+    })
+
+    // Add to Wishlist Testing
+    it (" should add products to wishlist", async () => {
+        const wishlist = {
+            "userID" : "60ec7b10410d0517ccd312bb",
+            "productID" : "60eda643ebfa5025b04c28ab",
+            "price" : "10000",
+            "addAt": "2021-05-07"
+        }
+        return addToWishlist.create(wishlist)
+        .then ((wishlist_ret) => {
+            expect(wishlist_ret.price).toEqual(10000)
+        })
+    })    
+
+    // retrieve Wishlist Testing 
+    it ("should retrieve a product in the wishlist", async () => {
+        const status = await retrieveWishlist.findById({
+            "_id":Object("61099731b707c02acc84fb00")
+        })
+        return retrieveWishlist.findOne(status)
+        .then ((retrieve_wishlist) => {
+            expect(retrieve_wishlist.price).toEqual(10000)
         })
     })
 })
