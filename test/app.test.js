@@ -13,7 +13,8 @@ const updateCart = require('../models/cart.models');
 const  deleteCart = require('../models/cart.models');
 const retrieveCart = require('../models/cart.models');
 const addToWishlist = require('../models/wishlist.models')
-const retrieveWishlist = require('../models/wishlist.models')
+const retrieveWishlist = require('../models/wishlist.models');
+const deleteWishlist = require('../models/wishlist.models');
 
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
@@ -108,7 +109,7 @@ describe("User Testing", ()=>{
         })
         return displayProducts.findOne(status)
         .then ((display_products) => {
-            expect(display_products.productName).toEqual("Nike Shoe")
+            expect(display_products.productName).toEqual("Latido Jacket")
         })
     })
 
@@ -224,5 +225,13 @@ describe("User Testing", ()=>{
         .then ((retrieve_wishlist) => {
             expect(retrieve_wishlist.price).toEqual(10000)
         })
+    })
+
+    // Delete Wishlist Testing
+    it ("should delete a wishlist", async () => {
+        const status = await deleteWishlist.deleteOne({
+            "_id":Object("61099731b707c02acc84fb00")
+        })
+        expect(status.ok).toBe(1)
     })
 })
