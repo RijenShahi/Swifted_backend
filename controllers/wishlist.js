@@ -78,3 +78,33 @@ module.exports.retrieveWishlist = async (req, res) => {
       return res.status(404).json({ success: false, message: err });
     });
 };
+
+//delete item on wishlist
+module.exports.deleteWishlist = async (req, res) => {
+  try {
+    let wid = req.body["wid"];
+
+    const wishlistData = await Wishlist.findOne({
+      userID: req.user._id,
+      _id: wid,
+    });
+    if (wishlistData != null) {
+      const wishlistDelete = await Wishlist.deleteOne({ _id: wid });
+      if (wishlistDelete != null) {
+        return res.status(201).json({
+          message: "Wishist Item Deleted Successfully.",
+          success: true,
+        });
+      } else {
+        return res
+          .status(202)
+          .json({ message: "Couldn't delete Wishlist Item!", success: true });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .json({ success: false, error: "Couldn't find Item!" });
+  }
+};
