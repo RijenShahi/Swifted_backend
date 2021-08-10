@@ -32,13 +32,13 @@ Router.get("/selectedProduct/:id", displaySelectedProduct);
 
 //route for updating the selected product
 Router.put(
-  "/updateProduct/:id",
+  "/updateProduct",
   upload.single("productImage"),
   auth.verifyUser,
   updateProduct
 );
 
 //route for deleting the selected product
-Router.post("/deleteProduct/:id", auth.verifyUser, deleteProduct);
+Router.post("/deleteProduct", auth.verifyUser, deleteProduct);
 
 module.exports = Router;

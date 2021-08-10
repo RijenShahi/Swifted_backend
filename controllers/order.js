@@ -7,7 +7,7 @@ const nodemon = require("nodemon");
 module.exports.order = async (req, res) => {
   try {
     console.log("Ordering the cart items");
-    const { firstName, lastName, email, address, phone } = req.body;
+    const { firstName, lastName, email, address, phone,additionalInfo } = req.body;
     const userID = req.user._id;
 
     const cartItems = await Cart.find({ userID }).populate("productID");
@@ -22,7 +22,7 @@ module.exports.order = async (req, res) => {
         productImage: product.productImage,
         price: product.price,
         quantity: item.quantity,
-        totalPrice: item.quantity * item.price,
+        totalPrice: item.quantity * price,
       };
       orderTotalPrice += obj.totalPrice;
       return obj;
@@ -37,10 +37,12 @@ module.exports.order = async (req, res) => {
       phone,
       cartItems: formattedCart,
       orderTotalPrice,
+      additionalInfo
     });
     console.log(orderData);
 
-    const order = await orderData.save();
+    const order = await orderData.save()
+    
     const tst = await Cart.deleteMany({ userID });
     return res.status(200).json({
       success: true,
@@ -53,3 +55,39 @@ module.exports.order = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+
+
+module.exports.bill =async (req,res)=>{
+try{
+  let myCart = await Cart.find({"userID":req.user._id})
+  .populate({
+    "path":"productID"
+  })
+  if(myCart.length > 0)
+  {
+    let billBox = {};
+    let itemAndQty = {};
+    myCart.map((val)=>{return itemAndQty[val.productID.productName] = [val.quantity,val.totalPrice]});
+    let desc = "";
+    for(var i in itemAndQty)
+    {
+      desc+=`${i}*${itemAndQty[i][0]},`
+    }
+
+    billBox['totalQuantity'] = Object.values(itemAndQty).map((val)=>{return val[0]}).reduce((acc,i)=>{return acc+i})
+    billBox['products'] = desc.slice(0,desc.length-1);
+    billBox['price'] = Object.values(itemAndQty).map((val)=>{return val[1]}).reduce((acc,i)=>{return acc+i})
+    billBox['delivery'] = 50;
+
+    let overall = Math.ceil((13/100)*billBox['price'])+billBox['price']+billBox['delivery'] 
+    billBox['overall'] = overall;
+
+
+    return res.status(200).json({"success":true,"message":"Bill Generated","data":billBox})
+  }
+}
+catch(err)
+{
+  return res.status(404).json({"success":false,"message":err})
+}
+}

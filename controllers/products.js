@@ -96,7 +96,7 @@ module.exports.updateProduct = async (req, res) => {
       return res.status(202).json({ message: "Invalid File!", success: false });
     }
 
-    const id = req.params.id;
+   
     const {
       productName,
       productDescription,
@@ -105,6 +105,7 @@ module.exports.updateProduct = async (req, res) => {
       productPrice,
       productStocks,
       productRating,
+      id
     } = req.body;
     const productImage = req.file.path;
 
@@ -141,7 +142,7 @@ module.exports.updateProduct = async (req, res) => {
 // delete selected product
 module.exports.deleteProduct = async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.body.id;
     await Product.deleteOne({ _id: id });
     return res
       .status(201)
