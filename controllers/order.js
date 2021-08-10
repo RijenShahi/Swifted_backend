@@ -1,4 +1,4 @@
-const Order = require("../models/order.modals");
+const Order = require("../models/order.models");
 const Cart = require("../models/cart.models");
 const { validationResult } = require("express-validator");
 const nodemon = require("nodemon");

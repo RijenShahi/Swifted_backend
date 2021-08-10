@@ -60,7 +60,7 @@ module.exports.displayProducts = async (req, res) => {
     // check if admin or vendor
     // shows all the added products to admin
     const user = req.user;
-    if (user.userType === "Admin") {
+    if (user.userType === "Admin" || user.userType == "Customer") {
       const productData = await Product.find();
       return res.status(200).json({ success: true, data: productData });
     } // shows all the products which the vendor added themselves
@@ -80,10 +80,9 @@ module.exports.displayProducts = async (req, res) => {
 module.exports.displaySelectedProduct = async (req, res) => {
   try {
     const id = req.params.id;
-    const singleProduct = await Product.findById({ _id: id });
+    const singleProduct = await Product.findOne({ _id: id });
     return res.status(200).json({ succtss: true, data: singleProduct });
   } catch (error) {
-    console.log(error);
     return res
       .status(500)
       .json({ success: false, error: "Product not found." });

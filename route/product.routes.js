@@ -1,4 +1,4 @@
-  const express = require("express");
+const express = require("express");
 const Router = express.Router();
 const auth = require("../middleware/auth");
 const upload = require("../middleware/upload");
@@ -24,7 +24,7 @@ Router.post(
 Router.get("/displayProducts", auth.verifyUser, displayProducts);
 
 //route for displaying only selected product
-Router.get("/selectedProduct/:id", auth.verifyUser, displaySelectedProduct);
+Router.get("/selectedProduct/:id", displaySelectedProduct);
 
 //    /displayProducts?status=PENDING
 // const status = req.query.status
