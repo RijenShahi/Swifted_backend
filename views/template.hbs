@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        body
+        {
+            margin:0px;
+            padding:0px;
+            font-family:verdana;
+            font-size:14px;
+            color:#24262b;
+        }
+        .wrapper
+        {
+            
+            height:fit-content;
+            background:#24262b;
+            overflow:hidden;
+            padding:20px;
+            border-radius:10px;
+        }
+        .intro
+        {
+            text-align:center;
+            font-size:25px;
+            text-shadow:2px 2px 2px rgb(255, 255, 255);
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #a6967b;
+        }
+        .contents
+        {
+            background:#24262b;
+            width:100%;
+            height:fit-content;
+            padding: 4px;
+            border-radius:10px;
+ 
+        }
+         .contentss
+        {
+            background:#24262b;
+            width:100%;
+            height:200px;
+            border-radius:10px;
+ 
+        }
+        .greeting
+        {
+            font-family:cambria;
+            font-weight:bolder;
+            margin-left:15px;
+            font-size:23px;
+            padding:6px;
+            color:#a6967b;
+            margin-top:0px;
+            margin-bottom:0px;
+        }
+        .headings
+        {
+            margin-left:15px;
+            font-size:25px;
+            font-weight:bolder;
+            margin-bottom:12px;
+            padding-top:15px;
+            color:#a6967b;
+            text-align:center;
+            margin-top:0px;
+        }
+        .info
+        {
+            margin-left:19px;
+            color:gray;
+ 
+        }
+        .myCode
+        {
+            width:70px;
+            height:30px;
+            border:1px solid gray;
+            margin-left:18px;
+            border-radius:5px;
+        }
+         .title_img{
+            width:200px;
+            height:200px;
+            overflow:hidden;
+            padding:0px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+        .title_img img
+        {
+            width: 100%;
+            height:100%;
+            padding: 0px;
+        }
+    </style>
+
+    </head>
+<body>
+    
+    {{#if_equal task 'Email Recovery'}}
+    <div class="wrapper col-6">
+    <h5 class="intro"> Swifted API </h5>
+    <div class="contents">
+        <h5 class="headings"> {{ heading }} </h5>
+        <h6 class="greeting">  {{ greeting }} </h6>
+        <p class="info"> Use the link to reset password  </p>
+        <a href={{link}} class="info">  Link  </a>
+       
+    </div>
+    </div>
+
+    {{/if_equal}}
+
+    </body>
+    </html>

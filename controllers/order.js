@@ -15,14 +15,14 @@ module.exports.order = async (req, res) => {
     // reformatting the cart items
     let orderTotalPrice = 0;
     const formattedCart = cartItems.map((item) => {
-      console.log(item.productID.productName);
+   
       const product = item.productID;
       const obj = {
         productName: product.productName,
         productImage: product.productImage,
-        price: product.price,
+        price: product.productPrice,
         quantity: item.quantity,
-        totalPrice: item.quantity * price,
+        totalPrice: item.quantity * product.productPrice,
       };
       orderTotalPrice += obj.totalPrice;
       return obj;

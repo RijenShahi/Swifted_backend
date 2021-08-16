@@ -9,6 +9,7 @@ const {
   loginProfile,
   getProfile,
   putUpdateProfile,
+  verifyEmail
 } = require("../controllers/users");
 
 //route for user registration
@@ -54,6 +55,9 @@ Router.put(
   auth.verifyUser,
   putUpdateProfile
 );
+
+
+Router.post('/verifyEmail',verifyEmail)
 
 //end user profile
 
