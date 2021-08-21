@@ -26,6 +26,6 @@
     "nodemailer-express-handlebars": "^4.0.0",
     "nodemon": "^2.0.12",
     "sweetalert": "^2.1.2",
-    "yarn": "^1.22.10"
+    "yarn": "^1.22.11"
   }
 }

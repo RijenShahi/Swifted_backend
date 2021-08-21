@@ -15,6 +15,7 @@ const retrieveCart = require('../models/cart.models');
 const addToWishlist = require('../models/wishlist.models')
 const retrieveWishlist = require('../models/wishlist.models');
 const deleteWishlist = require('../models/wishlist.models');
+const resetPassword = require('../models/userProfile.models')
 
  
 const url = "mongodb://127.0.0.1:27017/swifted_database";
@@ -233,5 +234,15 @@ describe("User Testing", ()=>{
             "_id":Object("61099731b707c02acc84fb00")
         })
         expect(status.ok).toBe(1)
+    })
+    // Rest Password Testing
+    it ("should reset password", async () => {
+        const status = await resetPassword.updateOne({_id:Object("611a7c394c2f570c70c70375")},{
+            $set : {
+                password : "chyshy12"
+            }
+        })
+        expect(status.ok).toBe(1)
+
     })
 })
