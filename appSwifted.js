@@ -4,6 +4,8 @@ const productRoute = require("./route/product.routes");
 const cartRoute = require("./route/cart.routes");
 const orderRoute = require("./route/order.routes");
 const wishlistRoute = require("./route/wishlist.routes");
+const ratingRoute = require('./route/ratingRoute')
+const commentRoute = require('./route/commentRoute')
 const cors = require("cors");
 const path = require("path");
 const dotenv = require('dotenv')
@@ -29,6 +31,8 @@ app.use("/swiftedAPI/products", productRoute);
 app.use("/swiftedAPI/cart", cartRoute);
 app.use("/swiftedAPI", orderRoute);
 app.use("/swiftedAPI/wishlist", wishlistRoute);
+app.use("/swiftedAPI/rating",ratingRoute)
+app.use("/swiftedAPI/comment",commentRoute)
 
 app.listen(PORT, (err) => {
   if (err) throw err;
