@@ -32,6 +32,7 @@ const createToken = (user) => {
   );
 };
 
+
 const digitizer = (n)=>{
   let num = n;
   if(num < 10)
@@ -81,11 +82,23 @@ const getFancyDate = (date)=>{
   return `${date.getDate()} ${month[date.getMonth()]},${date.getFullYear()}`
 }
 
+
+const formatTime = (n)=>{
+  let num = n;
+  if(num < 10)
+  {
+    num = "0"+n
+  }
+  return num
+
+}
+
 module.exports = {
   hashPassword,
   verifyPassword,
   createToken,
   getFormattedToday,
   mapToRating,
-  getFancyDate
-};
+  getFancyDate,
+  formatTime
+}

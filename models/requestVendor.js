@@ -3,7 +3,7 @@ const {ObjectId} = require('bson');
 const UserProfile = require('./userProfile.models');
 
 const RequestVendor = mongoose.model('RequestVendor',{
-    "user_id":{"type":ObjectId,"required":true,"ref":UserProfile},
+    "user_id":{"type":ObjectId,"required":true,"ref":UserProfile,"unique":true},
     "storeName":{"type":String,"required":true},
     "requestDate":{"type":String,"required":true},
     "reviewed":{"type":Boolean,"required":true,"default":false},
