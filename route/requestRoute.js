@@ -58,6 +58,9 @@ router.get("/show/request",auth.verifyUser,auth.verifyAdmin,(req,res)=>{
             return res.status(202).json({"success":false,"message":"There is no data!!","data":data});
         }
     })
+    .catch((err)=>{
+        return res.status(404).json({"success":false,"message":err});
+    })
 })
 
 router.post("/update/request",auth.verifyUser,auth.verifyAdmin,(req,res)=>{

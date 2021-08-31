@@ -28,6 +28,7 @@ module.exports.verifyUser = async (req, res, next) => {
 
 //guard for admin
 module.exports.verifyAdmin = function (req, res, next) {
+  console.log(req.user)
   if (!req.user) {
     return res.status(401).json({ message: "Unauthorized User!" });
   } else if (req.user.userType !== "Admin") {
