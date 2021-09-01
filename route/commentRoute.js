@@ -9,6 +9,7 @@ const {getFancyDate}  = require('../utils/utils')
 
 router.post('/addComment',auth.verifyUser,async(req,res)=>{
     try{
+        console.log(req.body)
         let productId = req.body['productId'];
         let comment = req.body['comment'].trim()
         let product = await Product.findOne({"_id":productId});
@@ -45,7 +46,10 @@ router.get('/fetchComments/:productId',async(req,res)=>{
         let product = await Product.findOne({"_id":req.params.productId});
         if(product != null)
         {
-            let comments = await Comment.find({"productId":req.params.productId}).sort({"commentAt":1});
+            let comments = await Comment.find({"productId":req.params.productId}).sort({"commentAt":1})
+            .populate({
+                "path":"userId"
+            })
             if(comments.length > 0)
             {
                 return res.status(200).json({"success":true,"message":`${comments.length} comments.`,"data":comments})

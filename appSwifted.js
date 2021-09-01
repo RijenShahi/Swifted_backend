@@ -6,6 +6,7 @@ const orderRoute = require("./route/order.routes");
 const wishlistRoute = require("./route/wishlist.routes");
 const ratingRoute = require('./route/ratingRoute')
 const commentRoute = require('./route/commentRoute')
+const replyRoute = require('./route/replyRoute')
 const requestRoute = require('./route/requestRoute')
 const cors = require("cors");
 const path = require("path");
@@ -35,6 +36,7 @@ app.use("/swiftedAPI/wishlist", wishlistRoute);
 app.use("/swiftedAPI/rating",ratingRoute)
 app.use("/swiftedAPI/comment",commentRoute)
 app.use("/swiftedAPI/request", requestRoute);
+app.use('/swiftedAPI/reply', replyRoute);
 
 
 app.listen(PORT, (err) => {

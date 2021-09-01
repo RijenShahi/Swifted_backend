@@ -3,7 +3,9 @@ const UserProfile = require("../models/userProfile.models");
 
 //guard for all types of users
 module.exports.verifyUser = async (req, res, next) => {
+ 
   const token = req.headers.authorization.split(" ")[1];
+  
   console.log("Token was generated.");
 
   if (!token) {
