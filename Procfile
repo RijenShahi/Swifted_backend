@@ -1,1 +1,1 @@
-web: npm appSwifted.js
+web: node appSwifted.js
