@@ -1,0 +1,1 @@
+web: npm appSwifted.js
