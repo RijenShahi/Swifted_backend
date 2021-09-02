@@ -38,6 +38,9 @@ app.use("/swiftedAPI/comment",commentRoute)
 app.use("/swiftedAPI/request", requestRoute);
 app.use('/swiftedAPI/reply', replyRoute);
 
+app.get('/', function (req, res) {
+  res.send('Server Running')
+})
 
 app.listen(PORT, (err) => {
   if (err) throw err;
@@ -45,3 +48,4 @@ app.listen(PORT, (err) => {
   connectDB(MONGO_URI);
   console.log(`API started at port: ${PORT}`);
 });
+
