@@ -77,6 +77,14 @@ const mapToRating = async (req,res,productId)=>{
 }
 
 
+const verifyToken = (token, tokenKey) => {
+  return new Promise((resolve, reject) => {
+      jwt.verify(token, tokenKey, (err, decoded) => {
+          err ? resolve("Token Expired!!") : resolve(decoded)
+      })
+  })
+}
+
 
 const getFancyDate = (date)=>{
   return `${date.getDate()} ${month[date.getMonth()]},${date.getFullYear()}`
@@ -100,5 +108,6 @@ module.exports = {
   getFormattedToday,
   mapToRating,
   getFancyDate,
-  formatTime
+  formatTime,
+  verifyToken
 }

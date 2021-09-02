@@ -9,7 +9,8 @@ const {
   loginProfile,
   getProfile,
   putUpdateProfile,
-  verifyEmail
+  verifyEmail,
+  resetPassword
 } = require("../controllers/users");
 
 //route for user registration
@@ -58,6 +59,12 @@ Router.put(
 
 
 Router.post('/verifyEmail',verifyEmail)
+Router.post('/reset/Password',
+[
+    check('newPassword','Please provide your new password.').not().isEmpty(),
+    check('confirmPassword',"Re-Enter your pasword.").not().isEmpty(),
+    check('newPassword','Password should lie under the range of 8-13').isLength({"min":8,"max":13})
+],resetPassword)
 
 //end user profile
 

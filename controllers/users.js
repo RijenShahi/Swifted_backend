@@ -1,9 +1,10 @@
 const UserProfile = require("../models/userProfile.models");
 const { validationResult } = require("express-validator");
-const { hashPassword, verifyPassword, createToken } = require("../utils/utils");
+const { hashPassword, verifyPassword, createToken,verifyToken } = require("../utils/utils");
 const nodemon = require("nodemon");
 const jwt = require('jsonwebtoken')
 const {sendMailMessage} = require('../utils/mail')
+const bcryptjs = require('bcryptjs');
 
 //account registration
 module.exports.registerProfile = async (req, res) => {
@@ -174,6 +175,61 @@ module.exports.verifyEmail = async(req,res)=>{
   }
 }
 
+module.exports.resetPassword = async(req,res)=>{
+  try {
+    console.log("dshdsahasd")
+    let errors = validationResult(req);
+    if (errors.isEmpty()) {
+        let newPassword = req.body['newPassword'];
+        let confirmPassword = req.body['confirmPassword'];
+        let resetToken = req.body['resetToken'];
+        let verifyReset = await verifyToken(resetToken, "resetKey")
 
+        let errorBox = {};
+        if (newPassword != confirmPassword) {
+            errorBox['newPassword'] = "Password MisMatch!!";
+        }
+        if (verifyReset == "Token Expired!!") {
+            errorBox['token'] = "Request Time Out!!";
+        }
+
+        if (Object.keys(errorBox).length > 0) {
+            return res.status(202).json({
+                "success": false,
+                "message": "Certain errors found during password reset.",
+                "error": errorBox
+            });
+        }
+        else {
+
+
+
+            bcryptjs.hash(newPassword, 10, (err, hash) => {
+                UserProfile.updateOne({ "email": verifyReset.email }, {
+                    $set: {
+                        "password": hash
+                    }
+                })
+                    .then((result) => {
+
+                        return res.status(200).json({ "success": true, "message": "Login with your new password." })
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        return res.status(404).json({ "success": false, "message": err })
+                    })
+            })
+        }
+    }
+    else {
+
+        return res.status(202).json({ "success": false, "message": errors.array()[0].msg });
+    }
+}
+catch (err) {
+    console.log(err)
+    return res.status(404).json({ "success": false, "message": err });
+}
+}
 
 //end
